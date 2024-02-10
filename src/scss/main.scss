@@ -1,0 +1,14 @@
+@import "normalize";
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: min(100rem, calc(100% - 6vh));
+  margin-inline: auto;
+}
