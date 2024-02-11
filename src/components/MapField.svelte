@@ -3,10 +3,11 @@
 	import Controls from '@/components/Controls.svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { currentCode, currentRound, currentScore, currentTrial, guessedCodes, totalScore } from '@/store';
+	import { currentCode, currentRound, currentScore, currentTrial, guessedCodes, message, totalScore } from '@/store';
 	import { floor } from 'lodash';
-	import { getRandomCode } from '@/lib';
+	import { getRandomCode, getRegionName, getWasWordCorrectForm } from '@/lib';
 	import { totalTrials } from '@/data';
+	import Message from '@/components/Message.svelte';
 
 	function resetMap() {
 		for (let region of document.querySelectorAll('[data-code]')) {
@@ -25,8 +26,6 @@
 		const eventTarget = event.target as HTMLElement;
 		const regionElement = eventTarget.closest('[data-code]');
 
-		console.log(document.querySelector('.scrollable-wrapper')?.style.cursor);
-
 		if (!regionElement ||
 			regionElement.classList.contains('wrong') ||
 			document.querySelector('.scrollable-wrapper').classList.contains('dragging')) return;
@@ -36,17 +35,22 @@
 			$totalScore += $currentScore;
 			$currentRound++;
 			$guessedCodes.push($currentCode);
-			resetMap();
 			setFlagAsBackground(regionElement.getAttribute('data-code'), regionElement);
+			const regionName = getRegionName(document.querySelector(`[data-code="${$currentCode}"]`));
+			$message = `Правильно! Это ${getWasWordCorrectForm(regionName)} ${regionName}`;
+			resetMap();
 		} else {
 			// wrong region click
 			regionElement.classList.add('wrong');
 			$currentScore = floor($currentScore / 2);
 			$currentTrial++;
+			$message = 'Мимо!';
 		}
 
 		if ($currentTrial === totalTrials) {
 			// it was last try
+			const regionName = getRegionName(document.querySelector(`[data-code="${$currentCode}"]`));
+			$message = $currentScore > 10 ? 'Ура!' : `Ладно, проехали... Это ${getWasWordCorrectForm(regionName)} ${regionName}`;
 			resetMap();
 			$currentRound++;
 		}
@@ -62,16 +66,13 @@
 			document.removeEventListener('click', tryGuess);
 		}
 	});
-
-	$: {
-		console.log($currentCode);
-	}
 </script>
 
 
 <div class="field">
 	<Map />
 	<Controls />
+	<Message />
 </div>
 
 <style lang="scss">
