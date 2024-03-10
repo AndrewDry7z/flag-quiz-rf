@@ -3,11 +3,13 @@
 	import Controls from '@/components/Controls.svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
-	import { currentCode, currentRound, currentScore, currentTrial, guessedCodes, message, totalScore } from '@/store';
-	import { floor } from 'lodash';
+	import { currentCode, currentRound, currentScore, currentTrial, message, totalScore, usedCodes } from '@/store';
+	import pkg from 'lodash';
 	import { getRandomCode, getRegionName, getWasWordCorrectForm } from '@/lib';
 	import { totalTrials } from '@/data';
 	import Message from '@/components/Message.svelte';
+
+	const { floor } = pkg;
 
 	function resetMap() {
 		for (let region of document.querySelectorAll('[data-code]')) {
@@ -34,7 +36,6 @@
 			//guessed correctly
 			$totalScore += $currentScore;
 			$currentRound++;
-			$guessedCodes.push($currentCode);
 			setFlagAsBackground(regionElement.getAttribute('data-code'), regionElement);
 			const regionName = getRegionName(document.querySelector(`[data-code="${$currentCode}"]`));
 			$message = `Правильно! Это ${getWasWordCorrectForm(regionName)} ${regionName}`;
@@ -53,6 +54,8 @@
 			$message = $currentScore > 10 ? 'Ура!' : `Ладно, проехали... Это ${getWasWordCorrectForm(regionName)} ${regionName}`;
 			resetMap();
 			$currentRound++;
+		} else {
+			$usedCodes.push($currentCode);
 		}
 	}
 

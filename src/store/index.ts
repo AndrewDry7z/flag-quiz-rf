@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { getRandomCode } from '@/lib';
 
-export const guessedCodes = writable([]);
+export const usedCodes = writable([]);
 export const zoom = writable(1);
 
 export const currentCode = writable(getRandomCode());

@@ -9,9 +9,9 @@
 <div class="scrollable-wrapper"
 		 use:dragscroll={{ axis: 'both', event: 'mouse' }}
 		 bind:this={scrollableWrapperEl}
-		 on:mousedown={() => {setTimeout(() => scrollableWrapperEl.classList.add('dragging'), 300)}}
-		 on:mouseup={() => {setTimeout(() => {scrollableWrapperEl.classList.remove('dragging')}, 300)}}
-		 on:mouseleave={() => {setTimeout(() => {scrollableWrapperEl.classList.remove('dragging')}, 300)}}
+		 on:mousedown={() => {setTimeout(() => scrollableWrapperEl?.classList.add('dragging'), 300)}}
+		 on:mouseleave={() => {setTimeout(() => {scrollableWrapperEl?.classList.remove('dragging')}, 300)}}
+		 on:mouseup={() => {setTimeout(() => {scrollableWrapperEl?.classList.remove('dragging')}, 300)}}
 		 on:scroll|preventDefault
 		 on:click|preventDefault
 >
