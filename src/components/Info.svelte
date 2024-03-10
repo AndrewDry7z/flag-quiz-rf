@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { currentCode, currentRound, currentTrial, totalScore } from '@/store';
 	import { totalRounds, totalTrials } from '@/data';
-	import { base } from '$service-worker';
+	import { base } from '$app/paths';
 
 	$: flagSrc = `${base}/assets/images/flags/${$currentCode}.svg`;
 </script>
