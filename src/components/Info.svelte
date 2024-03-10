@@ -21,6 +21,7 @@
 
 <style lang="scss">
   .info {
+    display: block;
     text-align: center;
     font-size: 2rem;
   }
