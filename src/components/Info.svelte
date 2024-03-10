@@ -3,6 +3,8 @@
 	import { totalRounds, totalTrials } from '@/data';
 	import { base } from '$app/paths';
 
+	console.log(base);
+
 	$: flagSrc = `${base}/assets/images/flags/${$currentCode}.svg`;
 </script>
 
