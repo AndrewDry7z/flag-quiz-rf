@@ -1,11 +1,8 @@
 <script lang="ts">
 	import { currentCode, currentRound, currentTrial, totalScore } from '@/store';
 	import { totalRounds, totalTrials } from '@/data';
-	import { base } from '$app/paths';
 
-	console.log(base);
-
-	$: flagSrc = `${base}/assets/images/flags/${$currentCode}.svg`;
+	$: flagSrc = `assets/images/flags/${$currentCode}.svg`;
 </script>
 
 {#if $currentRound <= totalRounds}
