@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { currentCode, currentRound, currentTrial, totalScore } from '@/store';
 	import { totalRounds, totalTrials } from '@/data';
-	import { dev } from '$app/environment';
+	import { base } from '$service-worker';
 
-	$: flagSrc = `${dev ? '' : process.env.BASE_PATH}/assets/images/flags/${$currentCode}.svg`;
+	$: flagSrc = `${base}/assets/images/flags/${$currentCode}.svg`;
 </script>
 
 {#if $currentRound <= totalRounds}
